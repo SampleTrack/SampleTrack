@@ -19,7 +19,6 @@ instance = Instance.from_db(db)
 
 @instance.register
 class Media(Document):
-    field_id = fields.StrField(attribute='_id', default='some_value')
     file_ref = fields.StrField(allow_none=True)
     file_name = fields.StrField(required=True)
     file_size = fields.IntField(required=True)
