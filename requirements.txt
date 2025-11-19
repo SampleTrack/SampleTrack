@@ -3,7 +3,7 @@ tgcrypto
 pymongo
 motor
 umongo
-marshmallow
+marshmallow==3.12.2
 requests
 bs4
 imdbpy==2021.4.18
