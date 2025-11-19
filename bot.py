@@ -14,6 +14,7 @@ from database.users_chats_db import db
 from info import SESSION, API_ID, API_HASH, PORT, BOT_TOKEN, LOG_STR
 from utils import temp
 from aiohttp import web
+from plugins import web_server
 from typing import Union, Optional, AsyncGenerator
 from pyrogram import types
 
