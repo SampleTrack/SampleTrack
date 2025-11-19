@@ -1,7 +1,7 @@
-pyrogram>=2.0.106
+pyrofork
 tgcrypto
-pymongo[srv]>=3.12.3  # Changed: Updated to 4.x for modern Python support
-motor>=2.5.1          # Changed: Updated to 3.x for modern Python support
+pymongo
+motor
 umongo
 marshmallow
 requests
