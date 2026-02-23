@@ -10,7 +10,7 @@ bs4==0.0.1
 pymongo==4.11.1
 dnspython==2.7.0
 marshmallow==3.20.1
-umongo==3.1.0
+umongo
 motor==3.7.0   
 
 #---imdb---#
