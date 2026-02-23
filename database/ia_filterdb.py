@@ -26,15 +26,10 @@ class Media(Document):
     file_type = fields.StrField(allow_none=True)
     mime_type = fields.StrField(allow_none=True)
     caption = fields.StrField(allow_none=True)
-    # Add this to handle the specific 'id' field error
-    id = fields.RawField(load_only=True)
 
     class Meta:
         indexes = ('$file_name', )
         collection_name = COLLECTION_NAME
-        # Add this to ignore any other unknown fields in the database
-        strict = False
-
 
 async def save_file(media):
     """Save file in database"""
