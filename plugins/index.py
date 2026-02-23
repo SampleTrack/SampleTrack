@@ -107,6 +107,8 @@ async def send_for_index(bot, message):
     await message.reply('Thank you! Waiting for moderator approval.')
 
 
+# plugins/index.py
+
 async def index_files_to_db(lst_msg_id, chat, msg, bot):
     total_files = 0
     duplicate = 0
@@ -126,10 +128,15 @@ async def index_files_to_db(lst_msg_id, chat, msg, bot):
                 
                 current += 1
                 if current % 20 == 0:
-                    await msg.edit_text(
-                        text=f"Fetched: {current}\nSaved: {total_files}",
-                        reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('Cancel', callback_data='index_cancel')]])
-                    )
+                    try:
+                        await msg.edit_text(
+                            text=f"Fetched: {current}\nSaved: {total_files}",
+                            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('Cancel', callback_data='index_cancel')]])
+                        )
+                    except FloodWait as e:
+                        await asyncio.sleep(e.value) # Wait for the time Telegram requests
+                    except Exception:
+                        pass
 
                 if message.empty:
                     deleted += 1
@@ -149,6 +156,13 @@ async def index_files_to_db(lst_msg_id, chat, msg, bot):
                             duplicate += 1
             
             await msg.edit(f'Completed! Total saved: <code>{total_files}</code>')
+            
+        except FloodWait as e:
+            await asyncio.sleep(e.value)
         except Exception as e:
             logger.exception(e)
-            await msg.edit(f'Error: {e}')
+            # Safeguard: only try to edit if it's not a rate-limit error
+            try:
+                await msg.edit(f'Error: {e}')
+            except:
+                print(f"Final Error message failed: {e}")
